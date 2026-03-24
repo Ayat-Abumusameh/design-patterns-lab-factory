@@ -9,24 +9,26 @@
 
 ## 🎥 Lecture Video
 
-This repository accompanies the lecture video explaining the Factory Pattern, including real-world examples, design reasoning, and activities.
+This repository accompanies the lecture video explaining the Factory Pattern through **real-world problems, design reasoning, and practical examples**.
 
-▶️ Watch on YouTube: [Lecture Video](#)
+▶️ Watch on YouTube: 
+
+[Lecture Video](https://youtu.be/He2Rp9AZ4qE)
 
 ---
 
 ## 📌 Overview
 
-In previous lectures, we focused on **understanding and modeling systems** using UML class diagrams and relationships. Now, we take the next step: **designing systems in a scalable and maintainable way**.  
+In previous lectures, we focused on **understanding and modeling systems** using UML class diagrams and relationships.
 
-The **Factory Pattern** is a **creational design pattern** that helps us:
+In this lecture, we move to the next level:  
+👉 **Designing systems that are scalable, maintainable, and flexible.**
 
-- Centralize object creation logic
-- Reduce code duplication
-- Decouple classes from concrete implementations
-- Improve scalability for growing systems
+The **Factory Pattern** is a **creational design pattern** that addresses a very common real-world problem:
 
-Rather than memorizing patterns, students learn to **recognize recurring design problems** and apply the Factory Pattern as a solution.
+> Repeated object creation logic across multiple parts of a system.
+
+Instead of creating objects directly using `new` in many places, we introduce a **centralized factory** responsible for object creation.
 
 ---
 
@@ -34,14 +36,16 @@ Rather than memorizing patterns, students learn to **recognize recurring design 
 
 By the end of this lecture, students will be able to:
 
-1. Identify when repeated `if-else` statements signal a design problem.
-2. Understand the risks of tight coupling and code duplication in object creation.
-3. Apply the Factory Pattern to centralize object instantiation.
-4. Connect Factory Pattern usage to UML concepts:
-   - **Realization**: interface vs. concrete class
-   - **Dependency**: client classes depending on a factory
-   - **Encapsulation**: hiding creation logic
-5. Think critically about system design rather than just coding.
+1. Recognize when repeated `if-else` logic indicates a design issue  
+2. Understand the risks of:
+   - tight coupling  
+   - duplicated object creation logic  
+3. Apply the Factory Pattern to centralize object creation  
+4. Connect Factory Pattern to UML concepts:
+   - **Realization** (interface implementation)  
+   - **Dependency** (client → factory, factory → concrete classes)  
+   - **Encapsulation** (hiding creation logic)  
+5. Think in terms of **design decisions**, not just code implementation  
 
 ---
 
@@ -49,46 +53,67 @@ By the end of this lecture, students will be able to:
 
 ### Common Problems in Real Systems
 
-- Multiple classes creating similar objects independently
-- Repeated conditional logic (`if-else`) scattered across the code
-- Tight coupling to concrete classes
-- Hard-to-maintain code as new types are added
-- Inconsistent behavior when updates are made in some places but not others
+- Multiple classes creating the same objects independently  
+- Repeated `if-else` or `switch` logic across the system  
+- Tight coupling to concrete classes (`new Dog()`, `new Cat()`, etc.)  
+- Difficult maintenance when adding new types  
+- Inconsistent updates across different parts of the system  
 
-### Benefits of Using Factory Pattern
+---
 
-- **Centralization**: Object creation logic exists in a single, dedicated place  
-- **No Duplication**: Avoid repeating logic across multiple classes  
-- **Better Maintainability**: Updates are made in one place only  
-- **Clear Responsibilities**: Classes focus on their main task, not creating objects  
-- **Scalability**: Adding new types requires minimal changes  
+### ✅ Benefits of Using Factory Pattern
 
-> **Key Insight:** Good design is not about removing complexity—it’s about placing it in the right place.
+- **Centralization** → One place for object creation  
+- **No Duplication** → Avoid repeating logic in multiple classes  
+- **Maintainability** → Update logic in one place only  
+- **Separation of Concerns** → Classes focus on their main responsibility  
+- **Scalability** → Easy to extend with new types  
+
+> 💡 **Key Insight:**  
+> Good design is not about removing complexity —  it is about *placing it in the right place*.
 
 ---
 
 ## 🧩 Key Concepts
 
-1. **Product** – The common interface or abstract class shared by all objects created by the factory.  
-2. **Concrete Products** – Implementations of the product interface.  
-3. **Factory** – A dedicated class responsible for creating objects based on input or conditions.  
-4. **Client** – Uses the factory instead of directly instantiating objects.
+- **Product** → Common interface (e.g., `Animal`)  
+- **Concrete Products** → Implementations (`Dog`, `Cat`, `Cow`)  
+- **Factory** → Class responsible for creating objects (`AnimalFactory`)  
+- **Client** → Uses the factory (`Zoo`, `AnimalShow`)  
 
 ---
 
 ## 📚 Examples
 
-Examples are provided in the [`/examples`](/example) folder and illustrate:
+Examples are provided in the [`/examples`](/examples) folder.
 
-- **Without Factory:** Traditional object creation using multiple `if-else` statements.  
-- **Basic Factory:** Centralized creation logic in a single class.  
-- **Improved Factory:** Polymorphism-based factories for flexible extension.  
+### 🔹 What You Will Find
 
-Each example includes:
+#### 1. Naïve Solution (Before Factory)
+- Object creation using `if-else` inside multiple classes  
+- Demonstrates:
+  - duplication  
+  - tight coupling  
+  - poor scalability  
 
-- UML diagrams highlighting the structure
-- Explanation of dependencies and relationships
-- Step-by-step reasoning behind design decisions
+#### 2. Factory Pattern Solution
+- Centralized creation logic in `AnimalFactory`  
+- Multiple classes (`Zoo`, `AnimalShow`) reuse the same factory  
+- Demonstrates:
+  - clean design  
+  - reduced duplication  
+  - better maintainability  
+
+---
+
+### 🔹 Scenario Used
+
+We simulate a **Zoo System** where:
+
+- Different animal types exist (`Dog`, `Cat`, `Cow`)  
+- Multiple parts of the system need to create animals  
+- Without Factory → logic is duplicated  
+- With Factory → creation is centralized  
 
 ---
 
@@ -97,31 +122,38 @@ Each example includes:
 ### 1️⃣ School System Factory
 
 **Scenario:**  
-A school system where multiple classes (School, Teacher, SchoolEvent) need to create different types of students.  
+A school system where multiple classes (School, Teacher, SchoolEvent) need to create different types of students.
 
-**Tasks:**
-
-- Identify repeated object creation logic
-- Design a `StudentFactory` class
-- Refactor the system to use the Factory Pattern
+**Goal:**  
+Design a better structure to avoid repeated object creation.
 
 ---
 
-### 2️⃣ Advanced Backend System
+### 2️⃣ Advanced System Design
 
 **Scenario:**  
-A growing system where multiple modules handle different operations:
+A growing system that handles different types of user actions:
 
-- Payment processing (cash, credit card, PayPal)  
-- Notifications (email, SMS, push)  
-- File handling (PDF, image, video)
+- Payments  
+- Orders  
+- Requests  
 
-**Tasks:**
+Each action requires:
+- different objects  
+- different processing logic  
 
-- Analyze the system for repeated `if-else` logic
-- Centralize object creation using a Factory
-- Ensure scalability, maintainability, and flexibility
-- Focus on design, not syntax
+Over time, the system suffers from:
+- repeated object creation  
+- inconsistent behavior  
+- difficult maintenance  
+
+**Goal:**  
+Redesign the system to improve:
+- scalability  
+- maintainability  
+- flexibility  
+
+> ⚠️ Focus on **design thinking**, not only code.
 
 ---
 
@@ -129,37 +161,46 @@ A growing system where multiple modules handle different operations:
 
 1. Fork the repository  
 2. Clone it locally  
-3. Explore [`/examples`](/example) for reference implementations  
-4. Complete activities inside [`/activities`](/activities)  
-5. Submit your solutions via Pull Request for review
+3. Explore [`/examples`](/examples) for reference implementations  
+4. Complete tasks inside [`/activities`](/activities)  
+5. Submit your solution via Pull Request  
 
 ---
 
 ## 💡 Tips for Students
 
-- Identify **design problems**, not just code problems  
-- Ask: *“Is object creation repeated? Should it be centralized?”*  
-- Think in terms of **responsibility, abstraction, and maintainability**  
-- UML diagrams are not just drawings—they reflect **design decisions**
+- Look for **repeated patterns in code**  
+- Ask:
+  > “Am I creating objects in multiple places?”  
+- Focus on:
+  - responsibility  
+  - abstraction  
+  - maintainability  
+- Use UML to **visualize your design before coding**  
 
 ---
 
 ## 📎 Final Note
 
-The Factory Pattern is a **mindset shift**, not just a class. Mastering it enables you to:
+The Factory Pattern is not just a class.
 
-- Control object creation  
-- Organize your system for future growth  
-- Avoid unnecessary complexity and duplication  
+It is a **design mindset**.
 
-From now on, whenever you see:
+It helps you:
+- control object creation  
+- reduce duplication  
+- build systems that scale  
+
+---
+
+Whenever you see:
 
 ```java
 if (...) new Something()
 ```
 
-Pause and ask:
+Stop and ask:
 
-> “Is this a design problem? Should I use a Factory?”
+> “Is this a design problem?”
 
-That question marks the transition from **programmer** to **software engineer**.
+That question is the beginning of **real software engineering thinking.**
